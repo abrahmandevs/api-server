@@ -21,7 +21,8 @@ class TicketResource extends JsonResource
             'attributes'=>[
                 'title'=>$this->title,
                 $this->mergeWhen(
-                    $request->routeIs('tickets.show'),
+                    !$request->routeIs(['tickets.index','user.tickets.index']),
+                    // $request->routeIs('tickets.show'),
                     [
                         'description'=>$this->description,
                         'status'=>$this->status,
