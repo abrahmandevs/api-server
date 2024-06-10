@@ -30,7 +30,7 @@ class AuthorTicketsController extends ApiController
             'status' => $request->input('data.attributes.status'),
             'user_id' => $author_id,
         ];
-        return new  TicketResource(Ticket::create($model));
+        return new TicketResource(Ticket::create($model));
     }
 
 
