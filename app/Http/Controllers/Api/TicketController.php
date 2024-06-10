@@ -9,6 +9,7 @@ use App\Http\Requests\Api\UpdateTicketRequest;
 use App\Http\Resources\Api\TicketResource;
 
 use App\Http\Filters\TicketFilter;
+use App\Http\Requests\Api\ReplaceTicketRequest;
 use App\Models\User;
 use App\Traits\apiResponses;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -82,7 +83,15 @@ class TicketController extends ApiController
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTicketRequest $request, Ticket $ticket)
+    public function update(UpdateTicketRequest $request, $ticket_id)
+    {
+        //ddf
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function replace(ReplaceTicketRequest $request, $ticket_id)
     {
         //
     }
