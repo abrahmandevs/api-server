@@ -12,6 +12,7 @@ use App\Http\Filters\TicketFilter;
 use App\Http\Requests\Api\ReplaceTicketRequest;
 use App\Models\User;
 use App\Traits\apiResponses;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 
@@ -82,11 +83,14 @@ class TicketController extends ApiController
         try {
             $ticket = Ticket::findOrFail($ticket_id);
 
+            $this->authorize('update',$ticket);
             $ticket->update($request->mappedAttributes());
             return new TicketResource($ticket);
 
         } catch (ModelNotFoundException $exception) {
             return $this->error('Ticket cannot be found', 404);
+        } catch(AuthorizationException $ex){
+            return $this->error('You are not authorized to update the ticket', 404);
         }
     }
 
