@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\LoginUserRequest;
 use App\Models\User;
+use App\Permissions\Abilities;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,14 +28,14 @@ class AuthController extends Controller
 
         return $this->ok('Login Successfull',[
             "user"=>$user,
-            'token'=>$user->createToken('devise_name',['*'],now()->addHour())->plainTextToken
+            'token'=>$user->createToken('devise_name',Abilities::getAbilites($user),now()->addHour())->plainTextToken
         ]);
     }
 
     public function register(Request $request):JsonResponse{
         return $this->ok('re','data');
     }
-    
+
 
     /* user logout
     *@parem request
@@ -42,7 +43,7 @@ class AuthController extends Controller
     public function logout(Request $request):JsonResponse{
         // $request->user()->tokens()->delete();
         $request->user()->currentAccessToken()->delete();
-    
+
         return $this->ok('Logout Successfull');
     }
 }
