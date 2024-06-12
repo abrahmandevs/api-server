@@ -44,7 +44,7 @@ class TicketController extends ApiController
             return $this->ok('User not found', ['error' => 'The provided user id does not exists']);
         }
 
-        return new TicketResource(Ticket::create($request->mappedAttrttributes()));
+        return new TicketResource(Ticket::create($request->mappedAttributes()));
     }
 
     /**
@@ -82,7 +82,7 @@ class TicketController extends ApiController
         try {
             $ticket = Ticket::findOrFail($ticket_id);
 
-            $ticket->update($request->mappedAttrttributes());
+            $ticket->update($request->mappedAttributes());
             return new TicketResource($ticket);
 
         } catch (ModelNotFoundException $exception) {
@@ -99,7 +99,7 @@ class TicketController extends ApiController
         try {
             $ticket = Ticket::findOrFail($ticket_id);
 
-            $ticket->update($request->mappedAttrttributes());
+            $ticket->update($request->mappedAttributes());
             return new TicketResource($ticket);
 
         } catch (ModelNotFoundException $exception) {
