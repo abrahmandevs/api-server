@@ -21,8 +21,13 @@ class UpdateTicketRequest extends BaseTicketRequest
      */
     public function rules(): array
     {
-        return [
-            //
+        $rules= [
+            'data.attributes.title'=>'sometimes|string|between:5,150',
+            'data.attributes.description'=>'sometimes|string|between:5,150',
+            'data.attributes.status'=>'sometimes|string|in:active,complete,holdOn,cancel',
+            'data.relationalship.data.id'=>'sometimes|string|integerl',
         ];
+
+        return $rules;
     }
 }
