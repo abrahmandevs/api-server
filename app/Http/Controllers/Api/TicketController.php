@@ -11,6 +11,7 @@ use App\Http\Resources\Api\TicketResource;
 use App\Http\Filters\TicketFilter;
 use App\Http\Requests\Api\ReplaceTicketRequest;
 use App\Models\User;
+use App\Policies\TicketPolicy;
 use App\Traits\apiResponses;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -20,6 +21,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 class TicketController extends ApiController
 {
     use apiResponses;
+    protected $policyClass = TicketPolicy::class;
     /**
      * Display a listing of the resource.
      */
