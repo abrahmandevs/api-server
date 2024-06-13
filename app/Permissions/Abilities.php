@@ -5,7 +5,7 @@ namespace App\Permissions;
 use App\Models\User;
 
 final class Abilities {
-    public const createTicket ='ticket:create';
+    public const CreateTicket ='ticket:create';
     public const UpdateTicket ='ticket:update';
     public const ReplaceTicket ='ticket:replace';
     public const DeleteTicket ='ticket:delete';
@@ -23,7 +23,7 @@ final class Abilities {
     public static function getAbilites(User $user){
         if ($user->in_manager) {
             return[
-                self::createTicket,
+                self::CreateTicket,
                 self::UpdateTicket,
                 self::ReplaceTicket,
                 self::DeleteTicket,
@@ -34,7 +34,7 @@ final class Abilities {
             ];
         }else{
             return [
-                self::createTicket,
+                self::CreateTicket,
                 self::UpdateOwnTicket,
                 self::DeleteOwnTicket,
 
