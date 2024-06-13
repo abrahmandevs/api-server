@@ -11,6 +11,7 @@ use App\Http\Resources\Api\TicketResource;
 use App\Models\Ticket;
 use App\Models\User;
 use App\Traits\apiResponses;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,18 @@ class AuthorTicketsController extends ApiController
     // Create resource in the auth contorller
     public function store($author_id, StoreTicketRequest $request)
     {
-        return new TicketResource(Ticket::create($request->mappedAttributes()));
+        // check user
+        try {
+            // policy
+            $this->isAble('store', Ticket::class);
+
+            return new TicketResource(Ticket::create($request->mappedAttributes([
+                'author'=>"user_id"
+            ])));
+
+        } catch (AuthorizationException $ex) {
+            return $this->error('You are not authorized to update the ticket', 401);
+        }
     }
 
     /**

@@ -7,20 +7,21 @@ use PhpParser\Node\Expr\FuncCall;
 
 class BaseTicketRequest extends FormRequest
 {
-    public function mappedAttributes(){
-        $attributeMap=[
-                'data.attributes.title'=>'title',
-                'data.attributes.description'=>'description',
-                'data.attributes.status'=>'status',
-                'data.relationalship.data.id'=>'user_id',
-                'data.attributes.createdAt'=>'created_at',
-                'data.attributes.updatedAt'=>'updated_at',
-        ];
+    public function mappedAttributes(array $otherAttributes = [])
+    {
+        $attributeMap = array_merge([
+            'data.attributes.title' => 'title',
+            'data.attributes.description' => 'description',
+            'data.attributes.status' => 'status',
+            'data.relationalship.data.id' => 'user_id',
+            'data.attributes.createdAt' => 'created_at',
+            'data.attributes.updatedAt' => 'updated_at',
+        ], $otherAttributes);
 
         $attrttributeToUpdate = [];
         foreach ($attributeMap as $key => $attribute) {
             if ($this->has($key)) {
-                $attrttributeToUpdate[$attribute]= $key;
+                $attrttributeToUpdate[$attribute] = $key;
             }
         }
 
@@ -30,7 +31,7 @@ class BaseTicketRequest extends FormRequest
     public function messages()
     {
         return [
-            'data.attributes.status'=>'Status will be active, comple, cancele',
+            'data.attributes.status' => 'Status will be active, comple, cancele',
         ];
     }
 }
