@@ -10,6 +10,7 @@ final class Abilities {
     public const ReplaceTicket ='ticket:replace';
     public const DeleteTicket ='ticket:delete';
 
+    public const CreateOwnTicket ='ticket:Own:create';
     public const UpdateOwnTicket ='ticket:Own:update';
     public const DeleteOwnTicket ='ticket:Own:delete';
 
@@ -34,7 +35,7 @@ final class Abilities {
             ];
         }else{
             return [
-                self::CreateTicket,
+                self::CreateOwnTicket,
                 self::UpdateOwnTicket,
                 self::DeleteOwnTicket,
 
