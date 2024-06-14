@@ -22,17 +22,18 @@ class StoreTicketRequest extends BaseTicketRequest
      */
     public function rules(): array
     {
+        $authorIdAttr = $this->route('tickets.store')? 'data.relationalship.author.data.id':'author';
         $rules = [
             'data.attributes.title' => 'required|string|between:5,150',
             'data.attributes.description' => 'required|string|between:5,150',
             'data.attributes.status' => 'required|string|in:active,complete,holdOn,cancel',
-            'data.relationalship.author.data.id' => 'required | integer : exists:users, id'
+            $authorIdAttr => 'required | integer : exists:users, id'
         ];
 
         $user = $this->user();
 
         if ($user->tokenCan(Abilities::CreateOwnTicket)) {
-            $rules['data.relationalship.author.data.id'] .= '|size' . $user->id;
+            $rules[$authorIdAttr] .= '|size' . $user->id;
         }
 
 
@@ -43,7 +44,7 @@ class StoreTicketRequest extends BaseTicketRequest
     {
         if ($this->routeIs('authors.tickets.store')) {
             $this->merge([
-                'data.relationalship.author.data.id' => $this->route('author')
+                'author' => $this->route('author')
             ]);
         }
     }
